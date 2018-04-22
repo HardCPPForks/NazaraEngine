@@ -30,11 +30,27 @@ namespace Ndk
 		return widgetPtr;
 	}
 
+	template<typename F>
+	void BaseWidget::ForEachChild(const F& func)
+	{
+		for (const auto& childPtr : m_children)
+			func(childPtr.get());
+	}
+
+	template<typename F>
+	void BaseWidget::ForEachChild(const F& func) const
+	{
+		for (const auto& childPtr : m_children)
+			func(static_cast<const BaseWidget*>(childPtr.get()));
+	}
+
 	inline void BaseWidget::AddChild(std::unique_ptr<BaseWidget>&& widget)
 	{
 		widget->Show(m_visible);
 		widget->SetParent(this);
 		m_children.emplace_back(std::move(widget));
+
+		Layout(); //< A bit ugly but required for layouts: maybe think of a better system
 	}
 
 	inline void BaseWidget::Center()

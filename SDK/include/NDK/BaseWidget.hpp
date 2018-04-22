@@ -48,6 +48,9 @@ namespace Ndk
 
 			//virtual BaseWidget* Clone() const = 0;
 
+			template<typename F> void ForEachChild(const F& func);
+			template<typename F> void ForEachChild(const F& func) const;
+
 			inline const Nz::Color& GetBackgroundColor() const;
 			inline Canvas* GetCanvas();
 			inline Nz::SystemCursor GetCursor() const;
@@ -94,11 +97,11 @@ namespace Ndk
 			virtual void OnFocusReceived();
 			virtual bool OnKeyPressed(const Nz::WindowEvent::KeyEvent& key);
 			virtual void OnKeyReleased(const Nz::WindowEvent::KeyEvent& key);
-			virtual void OnMouseEnter();
-			virtual void OnMouseMoved(int x, int y, int deltaX, int deltaY);
 			virtual void OnMouseButtonPress(int x, int y, Nz::Mouse::Button button);
 			virtual void OnMouseButtonRelease(int x, int y, Nz::Mouse::Button button);
+			virtual void OnMouseEnter();
 			virtual void OnMouseExit();
+			virtual void OnMouseMoved(int x, int y, int deltaX, int deltaY);
 			virtual void OnParentResized(const Nz::Vector2f& newSize);
 			virtual void OnTextEntered(char32_t character, bool repeated);
 

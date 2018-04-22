@@ -213,14 +213,6 @@ namespace Ndk
 	{
 	}
 
-	void BaseWidget::OnMouseEnter()
-	{
-	}
-
-	void BaseWidget::OnMouseMoved(int /*x*/, int /*y*/, int /*deltaX*/, int /*deltaY*/)
-	{
-	}
-
 	void BaseWidget::OnMouseButtonPress(int /*x*/, int /*y*/, Nz::Mouse::Button /*button*/)
 	{
 	}
@@ -229,7 +221,15 @@ namespace Ndk
 	{
 	}
 
+	void BaseWidget::OnMouseEnter()
+	{
+	}
+
 	void BaseWidget::OnMouseExit()
+	{
+	}
+
+	void BaseWidget::OnMouseMoved(int /*x*/, int /*y*/, int /*deltaX*/, int /*deltaY*/)
 	{
 	}
 
@@ -251,11 +251,15 @@ namespace Ndk
 		NazaraAssert(it != m_children.end(), "Child widget not found in parent");
 
 		m_children.erase(it);
+
+		Layout(); //< A bit ugly but required for layouts: maybe think of a better system
 	}
 
 	void BaseWidget::DestroyChildren()
 	{
 		m_children.clear();
+
+		Layout(); //< A bit ugly but required for layouts: maybe think of a better system
 	}
 
 	void BaseWidget::RegisterToCanvas()
